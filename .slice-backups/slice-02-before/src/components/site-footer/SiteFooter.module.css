@@ -1,0 +1,25 @@
+.footer {
+  margin-top: var(--space-8);
+  border-top: 1px solid var(--color-border);
+}
+
+.inner {
+  width: min(100% - (2 * var(--gutter)), var(--page-width));
+  margin: 0 auto;
+  padding: var(--space-5) 0;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  color: var(--color-muted);
+  font-size: 0.82rem;
+}
+
+.inner p {
+  margin: 0;
+  font: inherit;
+}
+
+.inner nav {
+  display: flex;
+  gap: var(--space-4);
+}

@@ -1,0 +1,107 @@
+.header {
+  position: relative;
+  z-index: 20;
+  border-top: 4px solid var(--color-text);
+  background: var(--color-chrome);
+}
+
+.inner {
+  width: min(100% - (2 * var(--gutter)), var(--page-width));
+  min-height: 4.15rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.logo {
+  justify-self: start;
+  font-family: var(--type-interface);
+  font-size: 0.89rem;
+  font-weight: 750;
+  letter-spacing: 0.19em;
+}
+
+.navigation,
+.actions {
+  display: flex;
+  align-items: center;
+}
+
+.navigation {
+  gap: clamp(1.35rem, 3vw, 2.4rem);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.navigation a:hover,
+.iconLink:hover {
+  color: var(--color-accent);
+}
+
+.actions {
+  justify-self: end;
+  gap: 0.5rem;
+}
+
+.iconLink {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: inline-grid;
+  place-items: center;
+}
+
+.menuButton {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  display: none;
+  place-items: center;
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.scrim { display: none; }
+.mobileOnly { display: none; }
+
+@media (max-width: 650px) {
+  .inner {
+    min-height: 4rem;
+    grid-template-columns: 1fr auto;
+  }
+
+  .navigation {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: auto;
+    z-index: 2;
+    width: min(76vw, 360px);
+    padding: 5.25rem 1.5rem 2rem;
+    border-left: 1px solid var(--color-border);
+    display: grid;
+    align-content: start;
+    align-items: stretch;
+    grid-auto-rows: max-content;
+    gap: 0;
+    background: var(--color-chrome);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(100%);
+    transition: opacity 160ms ease, transform 160ms ease, visibility 160ms ease;
+  }
+
+  .navigationOpen { opacity: 1; visibility: visible; transform: translateX(0); }
+  .navigation a { padding: .72rem 0; border-bottom: 1px solid var(--color-border); font-size: .94rem; }
+  .navigation a:last-child { border-bottom: 0; }
+  .navigation .mobileOnly { display: block; color: var(--color-muted); font-size: .84rem; }
+  .navigation a:nth-child(4) { margin-top: .65rem; border-top: 1px solid var(--color-border); }
+  .actions { position: relative; z-index: 3; }
+  .menuButton { display: inline-grid; }
+  .iconLink { display: none; }
+  .scrim { position: fixed; inset: 0; z-index: 1; border: 0; display: block; background: rgb(0 0 0 / .42); backdrop-filter: blur(2px); }
+}

@@ -1,0 +1,81 @@
+@import "../styles/tokens.css";
+@import "../styles/themes.css";
+@import "../styles/typography.css";
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+  scroll-behavior: smooth;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background: var(--color-canvas);
+  color: var(--color-text);
+  font-family: var(--font-interface), Arial, sans-serif;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+::selection {
+  background: var(--color-selection);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+* { scrollbar-width: thin; scrollbar-color: var(--color-border) transparent; }
+*::-webkit-scrollbar { width: 4px; height: 4px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 999px; }
+
+/* Compact listing-page introductions without changing other page headers. */
+main > header {
+  padding-top: clamp(1rem, 2.2vw, 1.75rem) !important;
+  padding-bottom: 1.35rem !important;
+}
+
+main > header h1 {
+  margin-bottom: .65rem !important;
+  font-size: clamp(2rem, 4vw, 3rem) !important;
+}
+
+main > header > div,
+main > header > p:last-child {
+  font-size: 1.02rem !important;
+  line-height: 1.5 !important;
+}
+
+main > article:first-child {
+  padding-top: clamp(1.25rem, 2.5vw, 2rem) !important;
+}
+
+.archive-page {
+  padding-top: 0 !important;
+}
+
+/* The filter already provides separation; the first result needs no extra rule. */
+[aria-labelledby="all-writing"] article:first-child,
+[aria-label="Archived articles"] article:first-child {
+  border-top: 0 !important;
+}

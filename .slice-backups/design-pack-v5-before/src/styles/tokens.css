@@ -1,0 +1,14 @@
+:root {
+  --page-width: 1000px;
+  --reading-width: 700px;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --space-1: 0.5rem;
+  --space-2: 0.75rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 3rem;
+  --space-7: 4.5rem;
+  --space-8: 7rem;
+  --radius-small: 0.35rem;
+}

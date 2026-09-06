@@ -1,0 +1,25 @@
+:root {
+  --type-interface: "europa", var(--font-interface-fallback), Arial, sans-serif;
+  --type-reading: "minion-pro", var(--font-reading-fallback), Georgia, "Times New Roman", serif;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3,
+button,
+nav {
+  font-family: var(--type-interface);
+}
+
+p {
+  font-family: var(--type-reading);
+  font-size: clamp(1.08rem, 1.8vw, 1.22rem);
+  line-height: 1.68;
+}

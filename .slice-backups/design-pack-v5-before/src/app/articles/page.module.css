@@ -1,0 +1,24 @@
+.main { width:min(100% - (2 * var(--gutter)),var(--page-width)); margin:auto; }
+.intro { max-width:700px; padding:clamp(2.75rem,6vw,5.25rem) 0 var(--space-6); }
+.eyebrow,.meta { font-family:var(--type-interface); font-size:.7rem; font-weight:750; letter-spacing:.1em; text-transform:uppercase; }
+.eyebrow { color:var(--color-accent); }
+.intro h1 { margin-bottom:1.25rem; font-size:clamp(2.4rem,5vw,3.7rem); letter-spacing:-.045em; }
+.intro>p:last-child { color:var(--color-muted); font-size:clamp(1.15rem,2vw,1.35rem); }
+.categories { padding:1rem 0; border-block:1px solid var(--color-border); display:flex; gap:1.5rem; overflow:auto; white-space:nowrap; color:var(--color-muted); font-size:.78rem; }
+.categories span:first-child { color:var(--color-text); font-weight:700; }
+.featured { margin:var(--space-7) 0; padding:clamp(2rem,5vw,4rem); display:grid; grid-template-columns:1.4fr .6fr; gap:var(--space-6); background:var(--color-accent-soft); }
+.featured h2 { max-width:700px; font-size:clamp(1.75rem,3vw,2.45rem); line-height:1.14; letter-spacing:-.035em; }
+.featured>div>p:not(.eyebrow) { max-width:620px; color:var(--color-muted); }
+.read { display:inline-flex; align-items:center; gap:.5rem; font-size:.76rem; font-weight:750; letter-spacing:.06em; text-transform:uppercase; }
+.featureImage { position:relative; min-height:240px; overflow:hidden; }
+.featureImage img { object-fit:cover; filter:saturate(.78) contrast(.96); }
+.list { padding-top:var(--space-5); }
+.list>h2 { margin-bottom:var(--space-5); font-size:1.5rem; }
+.list article { padding:1.65rem 0; border-top:1px solid var(--color-border); display:grid; grid-template-columns:190px 1fr auto; gap:var(--space-5); }
+.list article:last-child { border-bottom:1px solid var(--color-border); }
+.meta { color:var(--color-muted); padding-top:.25rem; }
+.meta span { display:block; margin-top:.35rem; font-weight:500; letter-spacing:0; text-transform:none; }
+.list h3 { margin-bottom:.55rem; font-family:var(--type-reading); font-size:clamp(1.3rem,2.4vw,1.7rem); font-weight:600; }
+.list article p { margin:0; color:var(--color-muted); font-size:1rem; }
+.arrow { margin-top:.35rem; }
+@media(max-width:700px){.featured{grid-template-columns:1fr}.featureImage{min-height:190px}.list article{grid-template-columns:1fr auto;gap:.7rem 1rem}.meta{grid-column:1/-1}.list article p{display:none}}
