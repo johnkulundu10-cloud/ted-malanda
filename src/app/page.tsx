@@ -10,5 +10,5 @@ export default async function Home() {
     getPublishedArticles(),
     getUncleTedColumns(),
   ]);
-  return <><SiteHeader /><HomeContent articles={articles}/><UncleTedHomeSection columns={uncleTedColumns.slice(0,3)}/><SiteFooter /></>;
+  return <><SiteHeader /><HomeContent articles={articles}/><UncleTedHomeSection columns={uncleTedColumns.slice(0,3)}/><SiteFooter showCta /></>;
 }
