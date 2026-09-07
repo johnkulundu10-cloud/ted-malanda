@@ -60,6 +60,17 @@
   margin: 0 0 0.7rem;
   color: var(--color-accent);
 }
+.leadEyebrow {
+  width: 100%;
+  margin-bottom: .85rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .75rem 1.25rem;
+}
+.leadEyebrow .kicker,
+.leadEyebrow .meta { margin: 0; }
+.leadEyebrow .meta { text-align: right; }
 .leadCard h1,
 .leadCard h2 {
   margin: 0 0 0.8rem;
@@ -348,4 +359,6 @@
   .latestSide { grid-template-columns: 1fr; }
   .latestSide article { gap: .55rem; }
   .latestSideImage { height: 180px; }
+  .leadEyebrow { align-items: flex-start; flex-direction: column; gap: .35rem; }
+  .leadEyebrow .meta { text-align: left; }
 }

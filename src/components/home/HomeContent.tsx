@@ -40,8 +40,8 @@ export function HomeContent({articles}:{articles:Article[]}){
   return <main>
     <section className={styles.leads} aria-label="Featured writing">{leadStories.map((story,index)=><article className={styles.leadCard} key={`${story.label}-${story.slug}`}>
       <Link className={styles.leadImage} href={`/articles/${story.slug}`}><Image src={story.image} alt={story.imageAlt??""} fill priority={index===0} sizes="(max-width: 760px) 100vw, 50vw" unoptimized={bypassImageOptimizer(story.image)}/></Link>
-      <p className={styles.kicker}>{story.label}</p>{index===0?<h1><Link href={`/articles/${story.slug}`}>{story.title}</Link></h1>:<h2><Link href={`/articles/${story.slug}`}>{story.title}</Link></h2>}
-      {preview(story,30)?<p className={styles.excerpt}>{preview(story,30)}</p>:null}<div className={styles.meta}>{story.category}<span>{story.date}</span></div><Link className={styles.action} href={`/articles/${story.slug}`}>Read article <ArrowRight size={15}/></Link>
+      <div className={styles.leadEyebrow}><p className={styles.kicker}>{story.label}</p><div className={styles.meta}>{story.category}<span>{story.date}</span></div></div>{index===0?<h1><Link href={`/articles/${story.slug}`}>{story.title}</Link></h1>:<h2><Link href={`/articles/${story.slug}`}>{story.title}</Link></h2>}
+      {preview(story,30)?<p className={styles.excerpt}>{preview(story,30)}</p>:null}<Link className={styles.action} href={`/articles/${story.slug}`}>Read article <ArrowRight size={15}/></Link>
     </article>)}</section>
     <nav className={styles.categoryBrowse} aria-labelledby="browse-categories"><p id="browse-categories">Browse by category</p><div className={styles.categoryBrowseList}>{homeCategories.map((category)=><Link key={category} href={`/articles?category=${encodeURIComponent(category)}#all-writing`}>{category}<ArrowRight size={13}/></Link>)}</div></nav>
     <section className={styles.section}><div className={styles.sectionHeading}><h2>Latest writing</h2><Link className={styles.desktopSectionLink} href="/articles">All articles <ArrowRight size={15}/></Link></div>

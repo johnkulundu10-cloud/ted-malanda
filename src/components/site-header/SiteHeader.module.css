@@ -96,11 +96,12 @@
   }
 
   .navigationOpen { opacity: 1; visibility: visible; transform: translateX(0); }
-  .navigation a { padding: .68rem 0; border: 0; font-size: .94rem; }
-  .navigation .mobileOnly { display: block; color: var(--color-muted); font-size: .84rem; }
-  .navigation a:nth-child(4) { margin-top: .65rem; border: 0; }
+  .navigation a { min-height:3.1rem; padding:0; border-top:1px solid color-mix(in srgb,var(--color-border) 70%,transparent); display:flex; align-items:center; justify-content:space-between; font-size:1rem; }
+  .navigation a:after { content:"→"; color:var(--color-accent); font-size:.82rem; }
+  .navigation .mobileOnly { display:flex; color:var(--color-muted); font-size:.94rem; }
+  .navigation a:nth-of-type(5) { margin-top:.8rem; border-top-color:var(--color-border); }
   .actions { position: relative; z-index: 3; }
-  .menuButton { display: inline-grid; }
+  .menuButton { display:inline-grid; }
   .iconLink { display: none; }
   .scrim { position: fixed; inset: 0; z-index: 1; border: 0; display: block; background: rgb(0 0 0 / .42); backdrop-filter: blur(2px); }
 }
