@@ -21,28 +21,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: { default: "Ted Malanda", template: "%s — Ted Malanda" },
   description: "Stories, commentary and observations by Kenyan writer and editor Ted Malanda.",
-  openGraph: {
-    title: "Ted Malanda",
-    description: "Stories, commentary and observations by Kenyan writer and editor Ted Malanda.",
-    url: "/",
-    siteName: "Ted Malanda",
-    type: "website",
-    locale: "en_KE",
-    images: [
-      {
-        url: "/images/social/homepage-preview.png",
-        width: 1200,
-        height: 630,
-        alt: "Ted Malanda — stories, commentary and observations",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Ted Malanda",
-    description: "Stories, commentary and observations by Kenyan writer and editor Ted Malanda.",
-    images: ["/images/social/homepage-preview.png"],
-  },
+  openGraph: { siteName:"Ted Malanda", type:"website", locale:"en_KE" },
+  twitter: { card:"summary_large_image" },
 };
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
