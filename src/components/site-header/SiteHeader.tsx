@@ -9,6 +9,7 @@ import styles from "./SiteHeader.module.css";
 const navigation = [
   { href: "/articles?view=list#all-writing", label: "Articles" },
   { href: "/archive", label: "Archive" },
+  { href: "/ted-talk", label: "Ted Talk" },
   { href: "/about", label: "About" },
   { href: "/articles?category=Humour+%26+Satire#all-writing", label: "Humour & Satire", mobileOnly: true },
   { href: "/articles?category=Kenyan+Life#all-writing", label: "Kenyan Life", mobileOnly: true },

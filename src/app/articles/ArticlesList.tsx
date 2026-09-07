@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { bypassImageOptimizer } from "@/lib/images";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -21,17 +22,20 @@ export function ArticlesList({ articles, initialCategory }: { articles: Article[
   const categories = ["All", ...new Set(articles.map((article) => article.category))];
   const router = useRouter();
   const [category, setCategory] = useState(categories.includes(initialCategory ?? "") ? initialCategory! : "All");
+  const [visibleCount, setVisibleCount] = useState(12);
   const filtered = category === "All" ? articles : articles.filter((article) => article.category === category);
+  const visible = filtered.slice(0, visibleCount);
 
   return <section className={styles.writing} aria-labelledby="all-writing">
     <div className={styles.listHeading}><h2 id="all-writing">All writing</h2></div>
     <div className={styles.filter} role="group" aria-label="Filter articles by category">
-      <span>Filter by</span><div>{categories.map((item) => <button className={category === item ? styles.active : ""} type="button" onClick={() => { setCategory(item); router.replace(item === "All" ? "/articles?view=list#all-writing" : `/articles?category=${encodeURIComponent(item)}#all-writing`, { scroll: false }); }} key={item}>{item}</button>)}</div>
+      <span>Filter by</span><div>{categories.map((item) => <button className={category === item ? styles.active : ""} type="button" onClick={() => { setCategory(item); setVisibleCount(12); router.replace(item === "All" ? "/articles?view=list#all-writing" : `/articles?category=${encodeURIComponent(item)}#all-writing`, { scroll: false }); }} key={item}>{item}</button>)}</div>
     </div>
-    <div className={styles.list}>{filtered.map((article, index) => <article className={styles.row} key={article.slug}>
-      <Link className={styles.rowImage} href={`/articles/${article.slug}`} aria-label={`Read ${article.title}`}><Image src={images[index % images.length]} alt="" fill sizes="(max-width: 700px) 100vw, 250px" /></Link>
+    <div className={styles.list}>{visible.map((article, index) => <article className={styles.row} key={article.slug}>
+      <Link className={styles.rowImage} href={`/articles/${article.slug}`} aria-label={`Read ${article.title}`}><Image src={article.image ?? images[index % images.length]} alt={article.imageAlt ?? ""} fill sizes="(max-width: 700px) 100vw, 250px" unoptimized={bypassImageOptimizer(article.image)} /></Link>
       <div className={styles.rowCopy}><p>{article.category}<span>{article.date}</span></p><h3><Link href={`/articles/${article.slug}`}>{article.title}</Link></h3><div>{article.excerpt}</div><Link className={styles.rowRead} href={`/articles/${article.slug}`}>Read article →</Link></div>
     </article>)}</div>
+    {visibleCount < filtered.length ? <button className={styles.more} type="button" onClick={() => setVisibleCount((count) => count + 12)}>Load more articles</button> : null}
     {filtered.length === 0 ? <p className={styles.empty}>No articles in this category yet.</p> : null}
   </section>;
 }

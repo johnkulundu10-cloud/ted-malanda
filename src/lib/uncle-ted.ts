@@ -1,0 +1,6 @@
+import { getSupabaseServer } from "@/lib/supabase-server";
+import { usableArticleImage } from "@/lib/images";
+export type UncleTedColumn={id:string;title:string;slug:string;teaser:string;letter:string;correspondentName:string;response:string;date:string;publishedAt:string;image?:string;imageAlt?:string;originalUrl?:string};
+const date=(value:string)=>new Intl.DateTimeFormat("en-GB",{day:"numeric",month:"long",year:"numeric",timeZone:"UTC"}).format(new Date(value));
+export async function getUncleTedColumns():Promise<UncleTedColumn[]>{const supabase=await getSupabaseServer();if(!supabase)return[];const{data}=await supabase.from("uncle_ted_columns").select("*").eq("status","published").lte("published_at",new Date().toISOString()).order("published_at",{ascending:false});return(data??[]).map(x=>({id:x.id,title:x.title,slug:x.slug,teaser:x.teaser??"",letter:x.letter??"",correspondentName:x.correspondent_name??"Anonymous",response:x.response??"",date:date(x.published_at),publishedAt:x.published_at,image:usableArticleImage(x.image_url),imageAlt:x.image_alt??undefined,originalUrl:x.original_url??undefined}));}
+export async function getUncleTedColumn(slug:string){return(await getUncleTedColumns()).find(x=>x.slug===slug);}
