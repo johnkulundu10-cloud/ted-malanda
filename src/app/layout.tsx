@@ -30,7 +30,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth" data-heading-font={appearance.heading_font} data-reading-font={appearance.reading_font}>
       <body className={`${interfaceFont.variable} ${readingFont.variable}`}>
-        <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
           {children}
         </ThemeProvider>
       </body>
