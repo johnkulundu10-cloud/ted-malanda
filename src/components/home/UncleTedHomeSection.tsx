@@ -8,13 +8,13 @@ export function UncleTedHomeSection({columns}:{columns:UncleTedColumn[]}) {
   return <section className={styles.uncleTedSection}>
     <div className={styles.sectionHeading}>
       <div><p className={styles.kicker}>With Uncle Ted</p><h2>Ted Talk</h2></div>
-      <Link href="/ted-talk">All columns <ArrowRight size={15}/></Link>
+      <Link className={styles.desktopSectionLink} href="/ted-talk">All columns <ArrowRight size={15}/></Link>
     </div>
     <div className={styles.uncleTedGrid}>{columns.map((column)=><article key={column.id}>
       <p>{column.correspondentName} asks</p>
       <h3><Link href={`/ted-talk/${column.slug}`}>{column.title}</Link></h3>
       {column.teaser?<blockquote>{column.teaser}</blockquote>:null}
       <span>{column.date}</span>
-    </article>)}</div>
+    </article>)}</div><Link className={styles.mobileSectionLink} href="/ted-talk">All columns <ArrowRight size={15}/></Link>
   </section>;
 }
