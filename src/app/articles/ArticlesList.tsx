@@ -18,8 +18,8 @@ const images = [
   "https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=700&q=80",
 ];
 
-export function ArticlesList({ articles, initialCategory }: { articles: Article[]; initialCategory?: string }) {
-  const categories = ["All", ...new Set(articles.map((article) => article.category))];
+export function ArticlesList({ articles, categories: categoryNames, initialCategory }: { articles: Article[]; categories: string[]; initialCategory?: string }) {
+  const categories = ["All", ...categoryNames];
   const router = useRouter();
   const [category, setCategory] = useState(categories.includes(initialCategory ?? "") ? initialCategory! : "All");
   const [visibleCount, setVisibleCount] = useState(12);

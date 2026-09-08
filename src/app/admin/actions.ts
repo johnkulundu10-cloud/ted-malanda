@@ -25,15 +25,21 @@ export async function saveArticle(form: FormData) {
     imageUrl = supabase.storage.from("article-images").getPublicUrl(path).data.publicUrl;
   }
 
-  const publishedInput = text(form, "published_at");
+  const publicationDate = text(form, "publication_date");
+  const publicationTime = text(form, "publication_time");
+  const publicationChanged = text(form, "publication_changed") === "true";
+  const selectedPublication = publicationDate && publicationTime ? new Date(`${publicationDate}T${publicationTime}`) : null;
+  const hasSelectedPublication = Boolean(selectedPublication && !Number.isNaN(selectedPublication.getTime()));
   const status = text(form, "status") === "published" ? "published" : "draft";
   const payload = {
     title, slug, excerpt: optional(text(form, "excerpt")), content: text(form, "content"), status,
-    published_at: status === "published" ? (publishedInput ? new Date(publishedInput).toISOString() : new Date().toISOString()) : optional(publishedInput ? new Date(publishedInput).toISOString() : ""),
+    published_at: status === "published"
+      ? (publicationChanged && hasSelectedPublication ? selectedPublication!.toISOString() : new Date().toISOString())
+      : (publicationChanged && hasSelectedPublication ? selectedPublication!.toISOString() : null),
     author_id: optional(text(form, "author_id")), category_id: optional(text(form, "category_id")),
     image_url: optional(imageUrl), image_alt: optional(text(form, "image_alt")), image_caption: optional(text(form, "image_caption")),
     original_publication: optional(text(form, "original_publication")), original_url: optional(text(form, "original_url")),
-    is_archived: form.get("is_archived") === "on", is_featured: form.get("is_featured") === "on", updated_at: new Date().toISOString(),
+    is_archived: text(form, "story_type") === "archive", is_featured: form.get("is_featured") === "on", updated_at: new Date().toISOString(),
   };
   const result = id ? await supabase.from("articles").update(payload).eq("id", id) : await supabase.from("articles").insert(payload);
   if (result.error) redirect(`/admin/articles${id ? `/${id}` : "/new"}?error=${encodeURIComponent(result.error.message)}`);
@@ -50,16 +56,28 @@ export async function deleteArticle(form: FormData) {
 
 export async function saveCategory(form: FormData) {
   const { supabase } = await requireAdmin();
+  const id = text(form, "id");
   const name = text(form, "name");
-  if (name) await supabase.from("categories").insert({ name, slug: slugify(name), description: optional(text(form, "description")) });
-  revalidatePath("/admin/categories");
+  if (name) {
+    const payload = { name, slug: slugify(name), description: optional(text(form, "description")) };
+    if (id) await supabase.from("categories").update(payload).eq("id", id);
+    else await supabase.from("categories").insert(payload);
+  }
+  revalidatePath("/", "layout");
+  redirect("/admin/categories?saved=1");
 }
 
 export async function saveAuthor(form: FormData) {
   const { supabase } = await requireAdmin();
+  const id = text(form, "id");
   const name = text(form, "name");
-  if (name) await supabase.from("authors").insert({ name, slug: slugify(name), bio: optional(text(form, "bio")), is_default: false });
-  revalidatePath("/admin/authors");
+  if (name) {
+    const payload = { name, slug: slugify(name), bio: optional(text(form, "bio")) };
+    if (id) await supabase.from("authors").update(payload).eq("id", id);
+    else await supabase.from("authors").insert({ ...payload, is_default: false });
+  }
+  revalidatePath("/", "layout");
+  redirect("/admin/authors?saved=1");
 }
 
 export async function saveAbout(form: FormData) {

@@ -10,6 +10,12 @@ type ArticleRow = {
   categories: { name?: string } | null;
 };
 
+export type PublishedCategory = { name: string; slug: string };
+
+const fallbackCategories: PublishedCategory[] = [
+  "Humour & Satire", "Kenyan Life", "Memory & Place", "People & Society", "Public Affairs",
+].map((name) => ({ name, slug: name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") }));
+
 function displayDate(value: string | null) {
   if (!value) return "Draft";
   return new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(value));
@@ -41,6 +47,14 @@ export async function getPublishedArticles(): Promise<Article[]> {
 
 export async function getPublishedArticle(slug: string) {
   return (await getPublishedArticles()).find((article) => article.slug === slug);
+}
+
+export async function getPublishedCategories(): Promise<PublishedCategory[]> {
+  const supabase = await getSupabaseServer();
+  if (!supabase) return fallbackCategories;
+  const { data, error } = await supabase.from("categories").select("name,slug").order("name");
+  if (error || !data?.length) return fallbackCategories;
+  return data.filter((item) => item.name && item.slug) as PublishedCategory[];
 }
 
 export async function getSiteSetting<T>(key: string, fallback: T): Promise<T> {

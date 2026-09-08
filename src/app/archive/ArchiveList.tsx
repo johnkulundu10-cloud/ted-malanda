@@ -18,8 +18,8 @@ const images = [
   "https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=700&q=80",
 ];
 
-export function ArchiveList({ articles }: { articles: Article[] }) {
-  const categories = ["All", ...new Set(articles.map((article) => article.category))];
+export function ArchiveList({ articles, categories: categoryNames }: { articles: Article[]; categories: string[] }) {
+  const categories = ["All", ...categoryNames];
   const [category, setCategory] = useState("All");
   const [visibleCount, setVisibleCount] = useState(12);
   const filtered = category === "All" ? articles : articles.filter((article) => article.category === category);
