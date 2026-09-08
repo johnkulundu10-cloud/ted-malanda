@@ -18,9 +18,7 @@ export async function generateMetadata({params}:{params:Promise<{slug:string}>})
   const column=await getUncleTedColumn(slug);
   if(!column)return{title:"Ted Talk"};
   const description=column.teaser||plain(column.letter).slice(0,180);
-  // Keep Ted Talk sharing independent of article images and use a versioned
-  // path so social platforms do not reuse the earlier image-less preview.
-  const image=absoluteUrl("/images/social/ted-talk-default-v2.png");
+  const image=absoluteUrl("/images/social/ted-talk-default.png");
   const url=absoluteUrl(`/ted-talk/${column.slug}`);
   return{title:column.title,description,alternates:{canonical:url},openGraph:{title:column.title,description,url,type:"article",siteName:"Ted Malanda",publishedTime:column.publishedAt,images:[{url:image,width:1200,height:630,alt:"Ted Talk with Uncle Ted editorial illustration"}]},twitter:{card:"summary_large_image",title:column.title,description,images:[image]}};
 }

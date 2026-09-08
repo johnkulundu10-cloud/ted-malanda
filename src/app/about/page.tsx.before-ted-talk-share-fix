@@ -21,6 +21,7 @@ export default async function AboutPage() {
             <span>Founding editor of <em>The Nairobian</em></span>
             <span>Stories, satire and public commentary</span>
           </div>
+          <p className={styles.note}>This introductory biography, portrait and the highlights above will be editable in the Admin area.</p>
         </div>
         <figure className={styles.portrait}>
           <Image src={about.image_url} alt="Portrait of Ted Malanda" width={900} height={900} priority unoptimized={bypassImageOptimizer(about.image_url)} />
